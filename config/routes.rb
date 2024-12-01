@@ -24,6 +24,7 @@ Rails.application.routes.draw do
 
 
       authenticate :user do
+        resources :job_preferences
         # Add your protected routes here
       end
     end

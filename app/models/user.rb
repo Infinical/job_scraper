@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :jwt_authenticatable, jwt_revocation_strategy: JwtDenylist
 
 
-  has_many :job_preferences
+  has_many :job_preferences, dependent: :destroy
   has_many :job_applications
   has_one_attached :resume
   has_one_attached :cover_letter
