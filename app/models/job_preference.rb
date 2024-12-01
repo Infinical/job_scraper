@@ -3,7 +3,7 @@ class JobPreference < ApplicationRecord
 
   validates :keywords, presence: true
   validates :locations, presence: true
-  
+
   validate :keywords_cannot_be_empty_array
   validate :locations_cannot_be_empty_array
 

@@ -25,6 +25,7 @@ Rails.application.routes.draw do
 
       authenticate :user do
         resources :job_preferences
+        resources :job_postings, only: [ :index, :show, :create ]
         # Add your protected routes here
       end
     end

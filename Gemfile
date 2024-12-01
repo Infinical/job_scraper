@@ -6,7 +6,7 @@ gem "puma", ">= 5.0"
 
 gem "jbuilder"
 gem "rack-cors"
-gem 'jsonapi-serializer'
+gem "jsonapi-serializer"
 
 gem "devise"
 gem "devise-jwt"
@@ -15,6 +15,8 @@ gem "sidekiq"
 
 gem "sentry-ruby"
 gem "sentry-rails"
+
+gem "kaminari"
 
 
 gem "tzinfo-data", platforms: %i[ windows jruby ]

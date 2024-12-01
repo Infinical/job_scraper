@@ -2,7 +2,7 @@ module Api
   module V1
     class JobPreferencesController < ApplicationController
       before_action :authenticate_user!
-      before_action :set_job_preference, only: [:show, :update, :destroy]
+      before_action :set_job_preference, only: [ :show, :update, :destroy ]
 
       def index
         @job_preferences = current_user.job_preferences
@@ -24,15 +24,15 @@ module Api
 
         if @job_preference.save
           render json: {
-            status: { code: 200, message: 'Job preference created successfully.' },
+            status: { code: 200, message: "Job preference created successfully." },
             data: serialize_job_preference(@job_preference)
           }, status: :created
         else
           render json: {
-            status: { 
-              code: 422, 
-              message: 'Job preference could not be created.',
-              errors: @job_preference.errors.full_messages 
+            status: {
+              code: 422,
+              message: "Job preference could not be created.",
+              errors: @job_preference.errors.full_messages
             }
           }, status: :unprocessable_entity
         end
@@ -41,15 +41,15 @@ module Api
       def update
         if @job_preference.update(job_preference_params)
           render json: {
-            status: { code: 200, message: 'Job preference updated successfully.' },
+            status: { code: 200, message: "Job preference updated successfully." },
             data: serialize_job_preference(@job_preference)
           }
         else
           render json: {
-            status: { 
-              code: 422, 
-              message: 'Job preference could not be updated.',
-              errors: @job_preference.errors.full_messages 
+            status: {
+              code: 422,
+              message: "Job preference could not be updated.",
+              errors: @job_preference.errors.full_messages
             }
           }, status: :unprocessable_entity
         end
@@ -58,7 +58,7 @@ module Api
       def destroy
         @job_preference.destroy
         render json: {
-          status: { code: 200, message: 'Job preference deleted successfully.' }
+          status: { code: 200, message: "Job preference deleted successfully." }
         }
       end
 
@@ -68,7 +68,7 @@ module Api
         @job_preference = current_user.job_preferences.find(params[:id])
       rescue ActiveRecord::RecordNotFound
         render json: {
-          status: { code: 404, message: 'Job preference not found.' }
+          status: { code: 404, message: "Job preference not found." }
         }, status: :not_found
       end
 

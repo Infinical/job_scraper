@@ -3,9 +3,9 @@ module Api
     module Users
       class RegistrationsController < Devise::RegistrationsController
         include ActionController::MimeResponds
-        
+
         respond_to :json
-        
+
         def create
           build_resource(sign_up_params)
           resource.save
@@ -21,14 +21,14 @@ module Api
         def render_resource(resource)
           if resource.persisted?
             render json: {
-              status: { code: 200, message: 'Signed up successfully.' },
+              status: { code: 200, message: "Signed up successfully." },
               data: serialize_user(resource)
             }
           else
             render json: {
-              status: { 
+              status: {
                 message: "User couldn't be created successfully.",
-                errors: resource.errors.full_messages 
+                errors: resource.errors.full_messages
               }
             }, status: :unprocessable_entity
           end
@@ -39,7 +39,7 @@ module Api
             id: user.id,
             email: user.email,
             created_at: user.created_at,
-            created_date: user.created_at.strftime('%d/%m/%Y')
+            created_date: user.created_at.strftime("%d/%m/%Y")
           }
         end
       end

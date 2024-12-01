@@ -10,9 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_01_102600) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_01_111338) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "job_postings", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "location", null: false
+    t.string "company", null: false
+    t.text "description", null: false
+    t.string "source_url", null: false
+    t.string "source_platform"
+    t.jsonb "metadata", default: {}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["created_at"], name: "index_job_postings_on_created_at"
+    t.index ["location"], name: "index_job_postings_on_location"
+    t.index ["source_url"], name: "index_job_postings_on_source_url", unique: true
+    t.index ["title"], name: "index_job_postings_on_title"
+  end
 
   create_table "job_preferences", force: :cascade do |t|
     t.bigint "user_id", null: false
