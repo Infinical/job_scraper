@@ -28,6 +28,11 @@ Rails.application.routes.draw do
         resources :job_postings, only: [ :index, :show, :create ]
         # Add your protected routes here
       end
+
+      mount Sidekiq::Web => '/sidekiq'
+      # authenticate :user, lambda { |u| u.admin? } do
+     
+      # end
     end
   end
 end

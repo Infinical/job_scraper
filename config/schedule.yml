@@ -1,0 +1,5 @@
+job_scraper:
+  cron: "0 0 * * *" # Run at midnight every day
+  class: "JobScraperWorker"
+  queue: scrapers
+  description: "Daily job scraping task"
