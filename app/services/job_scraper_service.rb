@@ -13,12 +13,12 @@ class JobScraperService
   def execute
     scrape_linkedin
     scrape_indeed
-    
+
     # Notify user about new job postings if any
     # notify_user if @new_jobs_count > 0
-    
+
     {
-      status: 'completed',
+      status: "completed",
       user_id: @user.id,
       successful_jobs: @successful_jobs,
       failed_jobs: @failed_jobs,
@@ -27,9 +27,9 @@ class JobScraperService
   rescue => e
     Rails.logger.error("Job scraping failed for user #{@user.id}: #{e.message}")
     Rails.logger.error(e.backtrace.join("\n"))
-    
+
     {
-      status: 'failed',
+      status: "failed",
       user_id: @user.id,
       error: e.message,
       successful_jobs: @successful_jobs,
@@ -58,32 +58,32 @@ class JobScraperService
 
   def scrape_linkedin_jobs(keyword, location)
     result = NodeScraperService.new.scrape_linkedin(keyword, location)
-    process_scraped_jobs(result, 'LinkedIn')
+    process_scraped_jobs(result, "LinkedIn")
   end
 
   def scrape_indeed_jobs(keyword, location)
     result = NodeScraperService.new.scrape_indeed(keyword, location)
-    process_scraped_jobs(result, 'Indeed')
+    process_scraped_jobs(result, "Indeed")
   end
 
   def process_scraped_jobs(jobs, source)
     jobs.each do |job_data|
       begin
         # Try to find existing job posting first
-        job_posting = JobPosting.find_by(source_url: job_data['url'])
-        
+        job_posting = JobPosting.find_by(source_url: job_data["url"])
+
         if job_posting.nil?
           JobPosting.create!(
-            title: job_data['title'],
-            company: job_data['company'],
-            location: job_data['location'],
-            description: job_data['description'],
-            source_url: job_data['url'],      
-            source_platform: job_data['source'] 
+            title: job_data["title"],
+            company: job_data["company"],
+            location: job_data["location"],
+            description: job_data["description"],
+            source_url: job_data["url"],
+            source_platform: job_data["source"]
           )
           @new_jobs_count += 1
         end
-        
+
         @successful_jobs += 1
       rescue ActiveRecord::RecordInvalid => e
         @failed_jobs += 1

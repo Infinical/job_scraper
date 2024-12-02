@@ -29,9 +29,9 @@ Rails.application.routes.draw do
         # Add your protected routes here
       end
 
-      mount Sidekiq::Web => '/sidekiq'
+      mount Sidekiq::Web => "/sidekiq"
       # authenticate :user, lambda { |u| u.admin? } do
-     
+
       # end
     end
   end
